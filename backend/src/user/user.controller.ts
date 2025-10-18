@@ -10,15 +10,4 @@ export class UserController {
     getAll(){
         return this.userService.getAll();
     }
-
-    @Post('login')
-    validateCredentials(@Body() body: LoginDto){
-        return this.userService.validateCredentials(body.username, body.password);
-    }
-
-    @Post('register')
-    create(@Body() body: SignupDto){
-        return this.userService.create(body);
-    }
-
 }
