@@ -1,12 +1,21 @@
 // src/api.js
 import axios from 'axios';
 
-// Point this to your backend (NestJS). Change port if needed.
+// Points to NestJS backend
 const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:3000';
 
 const api = axios.create({
   baseURL: API_BASE,
   headers: { 'Content-Type': 'application/json' },
+});
+
+// automatically attach token if present
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 // ✅ named export so Login can import it

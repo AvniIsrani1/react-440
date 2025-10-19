@@ -8,7 +8,7 @@ export class AuthController {
 
     @Post('login')
     validateCredentials(@Body() body: LoginDto){
-        return this.authService.validateCredentials(body.username, body.password);
+        return this.authService.login(body.username, body.password);
     }
 
     @Post('register')

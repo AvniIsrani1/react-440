@@ -2,10 +2,12 @@ import { BadRequestException, Injectable, NotFoundException, UnauthorizedExcepti
 import { SignupDto } from 'src/common/user.interface';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from "bcrypt";
+import { JwtService } from '@nestjs/jwt';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class AuthService {
-    constructor(private prisma: PrismaService){}
+    constructor(private prisma: PrismaService, private jwtService: JwtService, private userService: UserService){}
 
     async create(data: SignupDto){
         if(data.password!== data.confirmPassword){
@@ -21,21 +23,18 @@ export class AuthService {
         });
     }
 
-    async findByUsername(username: string){
-        return await this.prisma.user.findUnique({where: {username}});
-    }
-
-    async validateCredentials(username: string, password: string){
-        const user = await this.findByUsername(username);
+    async login(username: string, password: string){
+        const user = await this.userService.findByUsername(username);
         if(!user){
-            throw new NotFoundException('User not found');
+            throw new NotFoundException('User does not exist');
         }
         const isValid = await bcrypt.compare(password, user.password);
         if(!isValid){
             throw new UnauthorizedException("Invalid password");
         }
-        const {password: _, ...safeUser} = user;
-        return safeUser;
+        const {password: _, ...payload} = user;
+        const token = this.jwtService.sign(payload);
+        return {accessToken: token};
     }
 
     async userExists(username: string, email: string, phone: string): Promise<boolean> {

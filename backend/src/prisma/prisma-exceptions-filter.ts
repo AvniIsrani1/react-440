@@ -9,9 +9,13 @@ export class PrismaExceptionsFilter implements ExceptionFilter {
 
     switch (exception.code) {
       case 'P2002':
+        let target = Array.isArray(exception.meta?.target)
+          ? exception.meta.target[0]
+          : exception.meta?.target?.toString() ?? 'value';
+        if(target.toLowerCase()==='primary') target='username';
         return response.status(HttpStatus.CONFLICT).json({
           statusCode: HttpStatus.CONFLICT,
-          message: `Duplicate value for unique field: ${exception.meta?.target}`,
+          message: `This ${target.toLowerCase()} is already registered.`,
           error: 'Conflict',
         });
       case 'P2012':

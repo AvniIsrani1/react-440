@@ -1,12 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  // output   = "../generated/prisma"
 }
 
 datasource db {
@@ -14,15 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// user(username, password, firstName, lastName, email, phone) 
-// username is the primary key, and email/phone should be unique. You have to prevent the SQL
-// injection attack. There is an attached pdf file about SQL injection attacks. In addition, create
-// hashed passwords. 
-model User {
-  username String @id 
-  password String
+model user {
+  username  String @id
+  password  String
   firstName String
-  lastName String
-  email String @unique
-  phone String @unique
+  lastName  String
+  email     String @unique(map: "email")
+  phone     String @unique(map: "phone")
 }

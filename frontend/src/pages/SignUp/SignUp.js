@@ -23,6 +23,7 @@ export default function SignUp() {
       await api.post('/auth/register', {
         username: form.username.trim(),
         password: form.password,
+        confirmPassword: form.confirmPassword,
         firstName: form.firstName.trim(),
         lastName: form.lastName.trim(),
         email: form.email.trim(),
