@@ -20,10 +20,11 @@ Tech Stack: React, NestJS, MySQL
         
 ### 4. Start Frontend and Backend servers
 #### Run the frontend and backend in two separate terminals. 
+##### Backend
         cd backend
         npm install
-        npm start
-        
+        npm run start
+##### Frontend
         cd frontend
         npm install
         npm start
