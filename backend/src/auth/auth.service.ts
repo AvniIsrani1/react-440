@@ -22,9 +22,10 @@ export class AuthService {
     if (data.password !== data.confirmPassword) {
       throw new BadRequestException('Passwords do not match');
     }
-    if (await this.userExists(data.username, data.email, data.phone)) {
+    const existing = await this.userExists(data.username, data.email, data.phone);
+    if (existing) {
       throw new BadRequestException(
-        'User with provided details already exists',
+        `A user with this ${existing} already exists.`,
       );
     }
     const { confirmPassword, ...info } = data;
@@ -40,11 +41,12 @@ export class AuthService {
   async login(username: string, password: string) {
     const user = await this.userService.findByUsername(username);
     if (!user) {
-      throw new NotFoundException('Account does not exist');
+      // throw new NotFoundException('Account does not exist');
+      throw new UnauthorizedException('Invalid credentials');
     }
     const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) {
-      throw new UnauthorizedException('Invalid password');
+      throw new UnauthorizedException('Invalid credentials');
     }
     const { password: _, ...payload } = user;
     const token = this.jwtService.sign(payload);
@@ -61,12 +63,16 @@ export class AuthService {
     username: string,
     email: string,
     phone: string,
-  ): Promise<boolean> {
+  ): Promise<'username' | 'email' | 'phone' | null> {
     const existing = await this.prisma.user.findFirst({
       where: {
         OR: [{ username }, { email }, { phone }],
       },
     });
-    return !!existing;
+    if (!existing) return null;
+    if (existing.username === username) return 'username';
+    if (existing.email === email) return 'email';
+    if (existing.phone === phone) return 'phone';
+    return null;
   }
 }

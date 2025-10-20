@@ -35,7 +35,13 @@ export default function SignUp() {
       });
     } catch (err) {
       const s = err?.response?.data;
-      setMsg(s?.message || s?.error || 'Error registering');
+      let message = 'Error registering';
+
+      if (typeof s?.message === 'string') message = s.message;
+      else if (Array.isArray(s?.message)) message = s.message[0]; // displays only first error message
+      else if (typeof s?.error === 'string') message = s.error;
+
+      setMsg(message);
     } finally {
       setBusy(false);
     }
