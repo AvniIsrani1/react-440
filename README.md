@@ -1,7 +1,10 @@
-Group Members: Avni Israni, Devansh Sharma, Kevin Volkov
+# Team #2 
+## Group Members: Avni Israni, Devansh Sharma, Kevin Volkov
 
 Tech Stack: React, NestJS, MySQL
-
+# DEMO
+1. YouTube Link: https://youtu.be/iD_Y5PVsSac
+2. Google Drive Link: https://drive.google.com/drive/folders/1YQDuTkvDccavkgMqA2UeAZAwxHxITO4-?usp=sharing
 # How To Run
 ### 1. Clone the repository
         cd react-440
