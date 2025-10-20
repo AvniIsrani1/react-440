@@ -6,13 +6,14 @@ Tech Stack: React, NestJS, MySQL
 ### 1. Clone the repository
         cd react-440
 ### 2. Create a Database
-        Inside of MySQL Workbench, create a database (DATABASE_NAME)
+Inside of MySQL Workbench, create a database (DATABASE_NAME)
         CREATE DATABASE DATABASE_NAME;
 ### 3. Set Up Environment Variables
-        Inside of backend, navigate to the .env file and put the following:
+Inside of backend, navigate to the .env file and put the following:
         DATABASE_URL="mysql://<USER>:<PASSWORD>@<HOST>:<PORT>/<DATABASE_NAME>"
         JWT_SECRET = "YOUR_SECRET_KEY"
 ### 4. Start Frontend and Backend servers
+Run the frontend and backend in two separate terminals. 
         cd frontend
         npm install
         npm start
