@@ -18,7 +18,6 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// ✅ named export so Login can import it
 export const setAuthToken = (token) => {
   if (token) {
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;

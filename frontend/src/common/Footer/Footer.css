@@ -1,0 +1,84 @@
+.footer {
+  background-color: var(--color-bg-dark, #111);
+  color: var(--color-text-light, #f2f2f2);
+  padding: 2rem 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: 'Inter', sans-serif;
+}
+
+.footer-content {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer-brand {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-logo {
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-left: 0.4rem;
+}
+
+.footer .dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: crimson;
+  border-radius: 50%;
+  margin-right: 0.3rem;
+}
+
+.tagline {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 0.25rem;
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.footer-nav a {
+  color: #ddd;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.footer-nav a:hover {
+  color: crimson;
+}
+
+.footer-info {
+  text-align: right;
+  min-width: 200px;
+}
+
+.footer-info p {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin-bottom: 0.4rem;
+}
+
+.socials a {
+  color: #bbb;
+  margin-left: 0.6rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.socials a:hover {
+  color: crimson;
+}

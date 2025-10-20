@@ -1,0 +1,99 @@
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 22px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #2b3a42;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.4px;
+  text-decoration: none;
+}
+
+.logo .dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #88c0d7, #3c6c79);
+}
+
+.top-cta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-solid {
+  border: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: var(--accent, #3c6c79);
+  color: var(--accent-ink, #fff);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.btn-solid:hover {
+  filter: brightness(1.1);
+}
+
+.btn-solid:active {
+  transform: translateY(1px);
+}
+
+.btn-outline {
+  border: 1.5px solid var(--stroke, #c7d6dc);
+  background: transparent;
+  color: #2b3a42;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background: rgba(60, 108, 121, 0.06);
+}
+
+.btn-outline:active {
+  transform: translateY(1px);
+}
+
+.welcome-text {
+  font-weight: 500;
+  font-size: 14px;
+  color: #2b3a42;
+  margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+  .header {
+    gap: 10px;
+    padding: 12px 16px;
+  }
+
+  .top-cta {
+    gap: 8px;
+  }
+
+  .welcome-text {
+    display: block;
+    margin-bottom: 4px;
+  }
+}
