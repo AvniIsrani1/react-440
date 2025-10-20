@@ -1,49 +1,51 @@
 export interface User {
-    username: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
+  username: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
 }
 
 // DTOs
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { IsNotEmpty, IsString, Length } from 'class-validator';
 export class SignupDto {
-    @IsNotEmpty()
-    @IsString()
-    username: string;
+  @Length(1, 50)
+  @IsString()
+  username: string;
 
-    @IsNotEmpty()
-    @MinLength(8)
-    password: string;
+  @IsNotEmpty()
+  @Length(8, 255)
+  password: string;
 
-    @IsNotEmpty()
-    @MinLength(8)
-    confirmPassword: string;
+  @IsNotEmpty()
+  @Length(8, 255)
+  confirmPassword: string;
 
-    @IsNotEmpty()
-    @IsString()
-    firstName: string;
+  @Length(1, 50)
+  @IsString()
+  firstName: string;
 
-    @IsNotEmpty()
-    @IsString()
-    lastName: string;
+  @Length(1, 50)
+  @IsString()
+  lastName: string;
 
-    @IsEmail()
-    email: string;
+  @Length(1, 255)
+  email: string;
 
-    @IsNotEmpty()
-    @IsString()
-    phone: string;
+  @Length(1, 15)
+  @IsString()
+  phone: string;
 }
 
 export class LoginDto {
-    @IsNotEmpty()
-    @IsString()
-    username: string;
+  //   @Length(1, 50)
+  @IsNotEmpty()
+  @IsString()
+  username: string;
 
-    @IsNotEmpty()
-    @IsString()
-    password: string;
+  //   @Length(8, 255)
+  @IsNotEmpty()
+  @IsString()
+  password: string;
 }

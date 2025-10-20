@@ -8,10 +8,10 @@ datasource db {
 }
 
 model user {
-  username  String @id
-  password  String
-  firstName String
-  lastName  String
-  email     String @unique(map: "email")
-  phone     String @unique(map: "phone")
+  username String @id @db.VarChar(50)
+  password String @db.VarChar(255)
+  firstName String @db.VarChar(50)
+  lastName String @db.VarChar(50)
+  email String @unique(map: "email") @db.VarChar(255)
+  phone String @unique(map: "phone") @db.VarChar(15)
 }

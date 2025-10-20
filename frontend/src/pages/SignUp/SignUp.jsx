@@ -50,15 +50,15 @@ export default function SignUp() {
         </div>
 
         <form onSubmit={submit} className="form">
-          <input name="username" placeholder="Username" value={form.username} onChange={onChange} required />
+          <input name="username" placeholder="Username" value={form.username} onChange={onChange} maxLength={50} required />
           <div className="row">
-            <input name="firstName" placeholder="First name" value={form.firstName} onChange={onChange} required />
-            <input name="lastName" placeholder="Last name" value={form.lastName} onChange={onChange} required />
+            <input name="firstName" placeholder="First name" value={form.firstName} onChange={onChange} maxLength={50} required />
+            <input name="lastName" placeholder="Last name" value={form.lastName} onChange={onChange} maxLength={50} required />
           </div>
-          <input type="email" name="email" placeholder="Email" value={form.email} onChange={onChange} required />
-          <input name="phone" placeholder="Phone" value={form.phone} onChange={onChange} required />
-          <input type="password" name="password" placeholder="Password" value={form.password} onChange={onChange} required />
-          <input type="password" name="confirmPassword" placeholder="Confirm password" value={form.confirmPassword} onChange={onChange} required />
+          <input type="email" name="email" placeholder="Email" value={form.email} onChange={onChange} maxLength={255} required />
+          <input name="phone" placeholder="Phone" value={form.phone} onChange={onChange} maxLength={15} required />
+          <input type="password" name="password" placeholder="Password" value={form.password} maxLength={255} onChange={onChange} required />
+          <input type="password" name="confirmPassword" placeholder="Confirm password" value={form.confirmPassword}  maxLength={255} onChange={onChange} required />
 
           <button className="btn-primary" type="submit" disabled={busy}>
             {busy ? 'Creating…' : 'Create account'}
