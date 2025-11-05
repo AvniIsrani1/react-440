@@ -19,19 +19,28 @@ export class BlogService {
     });
     if (count >= 2) throw new BadRequestException('Max 2 blogs per day.');
 
+    //Normalize tags before saving
+    const tagArray = createBlogDto.tags
+      .split(',')
+      .map(t => t.trim().toLowerCase())
+      .join(',');
+
     return this.prisma.blog.create({
       data: {
         ...createBlogDto,
+        tags: tagArray, //override with normalized string
         authorUsername,
       },
     });
   }
-
+  
   async searchByTag(tag: string) {
+    const normalizedTag = tag.trim().toLowerCase();
+    console.log('Searching for tag:', normalizedTag);//for debug
     return this.prisma.blog.findMany({
       where: {
         tags: {
-          contains: tag,
+          contains: normalizedTag,
         },
       },
     });

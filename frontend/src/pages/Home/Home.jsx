@@ -16,9 +16,18 @@ export default function Home() {
           </h1>
 
           <p>
-            {user
+            {/*{user
               ? 'View blog posts'
-              : 'Where ideas take shape and voices find space.'}
+              : 'Where ideas take shape and voices find space.'}*/}
+            {/*KV: replaced above with clickable hyperlinks*/}
+            {user ? (
+              <>
+                <Link to="/blog/post" className="btn-link">Post a blog</Link><br />
+                <Link to="/blog/search" className="btn-link">View blog posts</Link>
+              </>
+            ) : (
+              'Where ideas take shape and voices find space.'
+            )}
           </p>
 
           <div className="cta-row">

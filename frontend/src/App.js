@@ -4,6 +4,8 @@ import Home from './pages/Home/Home';
 import SignUp from './pages/SignUp/SignUp';
 import Login from './pages/Login/Login';
 import Header from './common/Header/Header';
+import BlogSearch from './pages/BlogSearch/BlogSearch';//KV: added Blog Search page
+import BlogPost from './pages/BlogPost/BlogPost';//KV: added blog post page
 
 export default function App(){
   return (
@@ -13,6 +15,8 @@ export default function App(){
         <Route path="/" element={<Home/>} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/blog/post" element={<BlogPost />} /> {/*KV: add route to blog post*/}
+        <Route path="/blog/search" element={<BlogSearch />} /> {/*KV: add route to blog search*/}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
