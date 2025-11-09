@@ -22,7 +22,7 @@ export class BlogService {
     //Normalize tags before saving
     const tagArray = createBlogDto.tags
       .split(',')
-      .map(t => t.trim().toLowerCase())
+      .map((t) => t.trim().toLowerCase())
       .join(',');
 
     return this.prisma.blog.create({
@@ -33,15 +33,26 @@ export class BlogService {
       },
     });
   }
-  
+
   async searchByTag(tag: string) {
     const normalizedTag = tag.trim().toLowerCase();
     console.log('Searching for tag:', normalizedTag); //for debug
-    const blogs = await this.prisma.blog.findMany();
-
+    const blogs = await this.prisma.blog.findMany({
+      include: {
+        comments: {
+          select: {
+            id: true,
+            sentiment: true,
+            content: true,
+            createdAt: true,
+            authorUsername: true,
+          },
+        },
+      },
+    });
     // Return only those that have the EXACT tag
-    return blogs.filter(blog => {
-      const tagsList = blog.tags.split(',').map(t => t.trim().toLowerCase());
+    return blogs.filter((blog) => {
+      const tagsList = blog.tags.split(',').map((t) => t.trim().toLowerCase());
       return tagsList.includes(normalizedTag);
     });
   }
