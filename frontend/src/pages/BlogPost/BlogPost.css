@@ -1,0 +1,131 @@
+.main-content {
+  display: flex;
+  width: 100%;
+  height: 90%;
+  align-items: center;
+}
+
+.blogpost-hero {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  position: relative;
+  background: var(--panel-2);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  margin: 48px auto;
+  max-width: 900px;
+}
+
+.blogpost-hero::before,
+.blogpost-hero::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  filter: blur(20px);
+}
+
+.blogpost-hero::before {
+  width: 70%;
+  height: 70%;
+  left: -8%;
+  top: -12%;
+  background: radial-gradient(
+    60% 60% at 50% 50%,
+    rgba(20, 65, 82, 0.35),
+    transparent 70%
+  );
+}
+
+.blogpost-hero::after {
+  width: 60%;
+  height: 65%;
+  right: -12%;
+  top: 10%;
+  background: radial-gradient(
+    60% 60% at 50% 50%,
+    rgba(20, 65, 82, 0.25),
+    transparent 70%
+  );
+}
+
+.blogpost-pane {
+  position: relative;
+  padding: 40px 50px 50px;
+  width: 90%;
+  text-align: center;
+}
+
+.blogpost-pane .header h1 {
+  font-size: 48px;
+  color: #2c3b45;
+}
+
+.blogpost-pane .subtitle {
+  color: #5b6a73;
+  margin-bottom: 24px;
+}
+
+.hero-image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.hero-image {
+  width: 120px;
+  height: auto;
+  object-fit: cover;
+}
+
+.blogpost-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.blogpost-form input,
+.blogpost-form textarea {
+  font-size: 16px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: var(--radius-sm);
+  outline: none;
+}
+
+.blogpost-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.btn-primary {
+  background: #2c3b45;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #39505c;
+}
+
+.note.ok {
+  color: green;
+  margin-top: 10px;
+}
+
+.note.err {
+  color: red;
+  margin-top: 10px;
+}
+
+@media (max-width: 900px) {
+  .blogpost-pane {
+    padding: 36px 28px;
+  }
+}
