@@ -37,7 +37,7 @@ export default function BlogPost() {
             <h1>Share Your Thoughts</h1>
 
           <div className="hero-image-container">
-            <img src={notepad} alt="Muse Notepad Icon" className="hero-image" />
+            <img src={notepad} alt="Muse Notepad Icon" className="blog-hero-image" />
           </div>
 
           <form onSubmit={handleSubmit} className="blogpost-form">
