@@ -3,8 +3,12 @@
 
 Tech Stack: React, NestJS, MySQL
 # DEMO
-1. YouTube Link: https://youtu.be/iD_Y5PVsSac
-2. Google Drive Link: https://drive.google.com/drive/folders/1YQDuTkvDccavkgMqA2UeAZAwxHxITO4-?usp=sharing
+## All Demos
+Google Drive Link: https://drive.google.com/drive/folders/1YQDuTkvDccavkgMqA2UeAZAwxHxITO4-?usp=sharing
+## Phase 2
+YouTube Link: https://www.youtube.com/watch?v=e-CFJsqHejQ
+## Phase 1
+YouTube Link: https://youtu.be/iD_Y5PVsSac
 # How To Run
 ### 1. Clone the repository
         cd react-440
