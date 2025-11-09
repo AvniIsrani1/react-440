@@ -1,6 +1,6 @@
-//KV: This file represents the blog search page
 import React, { useState } from 'react';
 import axios from 'axios';
+import api from '../../api';
 
 export default function BlogSearch() {//define variables for post fields
   const [tag, setTag] = useState('');
@@ -10,15 +10,16 @@ export default function BlogSearch() {//define variables for post fields
   const handleSearch = async (e) => {//user pressed search button
     e.preventDefault(); // handles both button click and Enter key
     try {
-      const res = await axios.get(`http://localhost:3000/blog/search?tag=${tag}`);//make server request
+      const res = await api.get(`http://localhost:3000/blog/search?tag=${tag}`);//make server request
       setBlogs(res.data);
-      setSearched(true);//serch results gotton
+      setSearched(true);//search results gotton
     } catch (err) {
       console.error('Search failed:', err);//search failed
       setBlogs([]);
       setSearched(true);
     }
   };
+  
 
   return (
     <div className="blog-search-shell">

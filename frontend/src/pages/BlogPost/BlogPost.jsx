@@ -1,7 +1,7 @@
-//this file represents the blog post page
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
+import api from '../../api';
 
 export default function BlogPost() {//define variables for post fields
   const { user } = useContext(AuthContext);
@@ -13,11 +13,10 @@ export default function BlogPost() {//define variables for post fields
   const handleSubmit = async (e) => {//user pressed submit
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3000/blog', {//make request to server
+      const res = await api.post('http://localhost:3000/blog', {//make request to server
         subject,
         description,
-        tags,
-        authorUsername: user.username,
+        tags
       });
       setMessage('Blog posted successfully!');//successful post
     } catch (err) {

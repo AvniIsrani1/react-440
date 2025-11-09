@@ -28,7 +28,7 @@ model Blog {
   description String
   tags        String
   createdAt   DateTime @default(now())
-  author User @relation("UserBlogs", fields: [authorUsername], references: [username])
+  author User @relation("UserBlogs", fields: [authorUsername], references: [username], onDelete: Cascade)
   authorUsername String
 
   comments    Comment[]
@@ -39,8 +39,8 @@ model Comment {
   sentiment String
   content   String
   createdAt DateTime @default(now())
-  blog      Blog     @relation(fields: [blogId], references: [id])
+  blog      Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
   blogId    Int
-  author User @relation("UserComments", fields: [authorUsername], references: [username])
+  author User @relation("UserComments", fields: [authorUsername], references: [username], onDelete: Cascade)
   authorUsername String 
 }
