@@ -7,7 +7,7 @@ export async function ensureDatabaseExists() {
         host: 'localhost',
         port: 3306,
         user: 'root',//set to your actual MySQL username
-        password: 'comp440',//set to your actual MySQL [assword]
+        password: '1234',//set to your actual MySQL [assword]
     });
 
     await connection.query('CREATE DATABASE IF NOT EXISTS react440_phase1');
