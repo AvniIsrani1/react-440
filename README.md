@@ -27,23 +27,19 @@ YouTube Link: https://youtu.be/iD_Y5PVsSac
 ### 3. Set Up Environment Variables
 #### Inside of backend, create a .env file and put the following:
         
-        DATABASE_URL="mysql://<USER>:<PASSWORD>@<HOST>:<PORT>/<DATABASE_NAME>"
+        DATABASE_URL="mysql://<USER>:<PASSWORD>@localhost:3306/react440_phase1"
         JWT_SECRET = "YOUR_SECRET_KEY"
 
 #### Inside of frontend, create a .env file and put the following:
 
         REACT_APP_API_BASE=http://localhost:3000 
 
-### 4. Apply all database migration files
-### Run the following:
-        cd backend
-        npx prisma migrate dev
-
-### 5. Start Frontend and Backend servers
+### 4. Start Frontend and Backend servers
 #### Run the frontend and backend in two separate terminals. 
 ##### Backend
         cd backend
         npm install
+		npx prisma migrate dev
         npm run start
 ##### Frontend
         cd frontend
