@@ -7,7 +7,10 @@ datasource db {
   url = env("DATABASE_URL")
 }
 
-model user {
+
+// after making a change here, run this: npx prisma migrate dev --name description_description
+
+model User {
   username String @id @db.VarChar(50)
   password String @db.VarChar(255)
   firstName String @db.VarChar(50)
@@ -15,17 +18,17 @@ model user {
   email String @unique(map: "email") @db.VarChar(255)
   phone String @unique(map: "phone") @db.VarChar(15)
 
-  blogs    blog[]     @relation("UserBlogs")
+  blogs    Blog[]     @relation("UserBlogs")
   comments Comment[]  @relation("UserComments")
 }
 
-model blog {
+model Blog {
   id          Int      @id @default(autoincrement())
   subject     String
   description String
   tags        String
   createdAt   DateTime @default(now())
-  author user @relation("UserBlogs", fields: [authorUsername], references: [username])
+  author User @relation("UserBlogs", fields: [authorUsername], references: [username])
   authorUsername String
 
   comments    Comment[]
@@ -36,8 +39,8 @@ model Comment {
   sentiment String
   content   String
   createdAt DateTime @default(now())
-  blog      blog     @relation(fields: [blogId], references: [id])
+  blog      Blog     @relation(fields: [blogId], references: [id])
   blogId    Int
-  author user @relation("UserComments", fields: [authorUsername], references: [username])
-  authorUsername String
+  author User @relation("UserComments", fields: [authorUsername], references: [username])
+  authorUsername String 
 }

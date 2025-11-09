@@ -8,7 +8,7 @@ export interface User {
 }
 
 // DTOs
-import { IsNotEmpty, IsString, Length } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString, Length } from 'class-validator';
 export class SignupDto {
   @Length(1, 50)
   @IsString()

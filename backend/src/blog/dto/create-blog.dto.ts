@@ -11,7 +11,4 @@ export class CreateBlogDto {
 
   @IsString()
   tags: string;
-
-  @IsString()
-  authorUsername: string; // This will be replaced by actual auth later
 }

@@ -36,13 +36,13 @@ export class BlogService {
   
   async searchByTag(tag: string) {
     const normalizedTag = tag.trim().toLowerCase();
-    console.log('Searching for tag:', normalizedTag);//for debug
-    return this.prisma.blog.findMany({
-      where: {
-        tags: {
-          contains: normalizedTag,
-        },
-      },
+    console.log('Searching for tag:', normalizedTag); //for debug
+    const blogs = await this.prisma.blog.findMany();
+
+    // Return only those that have the EXACT tag
+    return blogs.filter(blog => {
+      const tagsList = blog.tags.split(',').map(t => t.trim().toLowerCase());
+      return tagsList.includes(normalizedTag);
     });
   }
 }
