@@ -23,7 +23,7 @@ export default function Login() {
     setMsg('');
     setBusy(true);
     try {
-      const res = await api.post('/auth/login', form);
+      const res = await api.post('http://localhost:3000/auth/login', form);
       const token = res.data?.accessToken;
       const userData = res.data?.user;
       if (token && userData) login(userData, token);

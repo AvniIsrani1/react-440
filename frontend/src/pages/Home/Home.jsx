@@ -23,7 +23,14 @@ export default function Home() {
             {user ? (
               <>
                 <Link to="/blog/post" className="btn-link">Post a blog</Link><br />
-                <Link to="/blog/search" className="btn-link">View blog posts</Link>
+                <Link to="/blog/search" className="btn-link">View blog posts</Link><br />
+                <Link to="/blog/phase3step1" className="btn-link">Phase 3 step #1</Link><br />
+                <Link to="/blog/phase3step2" className="btn-link">Phase 3 step #2</Link><br />
+                <Link to="/blog/phase3step3" className="btn-link">Phase 3 step #3</Link><br />
+                <Link to="/blog/phase3step4" className="btn-link">Phase 3 step #4</Link><br />
+                <Link to="/blog/phase3step5" className="btn-link">Phase 3 step #5</Link><br />
+                <Link to="/blog/phase3step6" className="btn-link">Phase 3 step #6</Link><br />
+                <Link to="/blog/phase3step7" className="btn-link">Phase 3 step #7</Link>
               </>
             ) : (
               'Where ideas take shape and voices find space.'
