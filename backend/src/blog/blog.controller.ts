@@ -41,7 +41,7 @@ async searchByTags(
   @Query('tag1') tag1: string,
   @Query('tag2') tag2: string
 ) {
-  console.log('step 1 route hit with tag:', tag1, ' and ', tag2);
+  console.log('step 1 route hit with tags:', tag1, ' and ', tag2);
   try {
     const result = await this.prisma.$queryRawUnsafe(`
       SELECT b1.authorUsername AS username,
@@ -51,8 +51,8 @@ async searchByTags(
       JOIN Blog b2 
         ON b1.authorUsername = b2.authorUsername
         AND DATE(b1.createdAt) = DATE(b2.createdAt)
-      WHERE LOWER(b1.tags) = LOWER('${tag1}') 
-        AND LOWER(b2.tags) = LOWER('${tag2}');
+      WHERE LOWER(b1.tags) LIKE '%${tag1.toLowerCase()}%' 
+        AND LOWER(b2.tags) LIKE '%${tag2.toLowerCase()}%';
     `);
     console.log("result = ", result);
     return result;

@@ -1,5 +1,5 @@
-//This page is needed for the implementation of Phase 3 step 
-
+//This page is needed for the implementation of Phase 3 step so that the user can follow other
+//users
 import React, { useState } from 'react';
 
 function FollowOthers() {
