@@ -1,15 +1,14 @@
 //Frontend page for phase 3 step 2. Makes the call to the corresponding backend route immediatly
 //when this page is loaded and displays the results
-
 import React, { useEffect, useState } from 'react';
 
-function Phase3step2() {
+function p3s2Search() {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const response = await fetch('http://localhost:3000/blog/phase3step2');
+        const response = await fetch('http://localhost:3000/blog/p3s2');
         if (!response.ok) {
           throw new Error('Request failed');
         }
@@ -50,4 +49,4 @@ function Phase3step2() {
   );
 }
 
-export default Phase3step2;
+export default p3s2Search;

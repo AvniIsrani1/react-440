@@ -1,5 +1,4 @@
 //This file was added by Kevin to automatically create the database if it doesn't yet exist
-
 import * as mysql from 'mysql2/promise';
 
 export async function ensureDatabaseExists() {

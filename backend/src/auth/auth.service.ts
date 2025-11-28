@@ -40,19 +40,21 @@ export class AuthService {
 
   async login(username: string, password: string) {
     const user = await this.userService.findByUsername(username);
-    if (!user) {
-      // throw new NotFoundException('Account does not exist');
+    if (!user){
       throw new UnauthorizedException('Invalid credentials');
     }
+
     const isValid = await bcrypt.compare(password, user.password);
-    if (!isValid) {
+    if(!isValid)
       throw new UnauthorizedException('Invalid credentials');
-    }
-    const { password: _, ...payload } = user;
+
+    const payload = {sub: user.id, username: user.username};//minimal JWT payload
     const token = this.jwtService.sign(payload);
-    return {
+
+    return{
       accessToken: token,
       user: {
+        id: user.id,
         username: user.username,
         email: user.email,
       },

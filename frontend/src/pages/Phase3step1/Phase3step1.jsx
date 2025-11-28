@@ -1,6 +1,5 @@
 //Frontend page for phase 3 step 1. Contains the 2 tag input fields, search button, cals the
 //backend search route, and displays results
-
 import React, { useState } from 'react';
 
 function P3S1Search() {//define the method to perform the search for phase 3 step 1
@@ -13,7 +12,7 @@ function P3S1Search() {//define the method to perform the search for phase 3 ste
   const handleSearch = async () => {//handle the search
     try {
       const response = await fetch(//get the response from backend
-        `http://localhost:3000/blog/searchByTags?tag1=${encodeURIComponent(tag1)}&tag2=${encodeURIComponent(tag2)}`
+        `http://localhost:3000/blog/p3s1?tag1=${encodeURIComponent(tag1)}&tag2=${encodeURIComponent(tag2)}`
       );
       if (!response.ok)
         throw new Error('Search request failed!');//request failed: throw error

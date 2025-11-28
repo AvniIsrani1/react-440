@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { BlogModule } from './blog/blog.module';
 import { CommentModule } from './comment/comment.module';
+import { FollowingModule } from './following/following.module';//KV add: for following implementation
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { CommentModule } from './comment/comment.module';
     }),
     BlogModule,
     CommentModule,
+    FollowingModule//KV add: for following implementation
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

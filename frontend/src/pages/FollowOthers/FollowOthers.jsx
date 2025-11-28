@@ -1,58 +1,57 @@
 //This page is needed for the implementation of Phase 3 step so that the user can follow other
 //users
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
-function FollowOthers() {
+function FollowOthers(){
   const [searchUsername, setSearchUsername] = useState('');
   const [resultUser, setResultUser] = useState(null);
-  const [isFollowing, setIsFollowing] = useState(false);
 
-  const handleSearch = async () => {
-    try {
+  const handleSearch = async () =>{
+    try{
+      const token = localStorage.getItem('token');
       const response = await fetch(
-        `http://localhost:3000/user/search?username=${encodeURIComponent(searchUsername)}`
+        `http://localhost:3000/user/username?username=${encodeURIComponent(searchUsername)}`,
+        {
+          headers: token ? {Authorization: `Bearer ${token}`}: {},
+        }
       );
-      if (!response.ok) {
-        throw new Error('Search request failed');
-      }
+      if(!response.ok) throw new Error('Search request failed');
       const data = await response.json();
-
-      if (data) {
-        setResultUser(data);
-        setIsFollowing(data.isFollowing); // backend should return whether current user follows them
-      } else {
-        setResultUser(null);
-      }
-    } catch (error) {
-      console.error(error);
+      setResultUser(data || null);
+    }
+    catch (err){
+      console.error(err);
       setResultUser(null);
     }
-  };
+};
 
-  const handleFollowToggle = async () => {
-    if (!resultUser) return;
+const handleFollowToggle = async () => {
+  if (!resultUser) return;
 
-    try {
-      const endpoint = isFollowing
-        ? `http://localhost:3000/follow/unfollow`
-        : `http://localhost:3000/follow/follow`;
+  try {
+    const endpoint = resultUser.isFollowing
+      ? `http://localhost:3000/following/unfollow`
+      : `http://localhost:3000/following/follow`;
 
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ targetUsername: resultUser.username }),
-      });
+    const token = localStorage.getItem('token');
 
-      if (!response.ok) {
-        throw new Error('Follow/unfollow request failed');
-      }
+    const response = await fetch(endpoint, {
+      method: resultUser.isFollowing ? 'DELETE' : 'POST', // ✅ use DELETE for unfollow
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ followingUsername: resultUser.username }),
+    });
 
-      // Toggle state
-      setIsFollowing(!isFollowing);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    if (!response.ok) throw new Error('Follow/unfollow request failed');
+
+    const data = await response.json();
+    setResultUser({ ...resultUser, isFollowing: data.isFollowing });
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   return (
     <div>
@@ -75,7 +74,7 @@ function FollowOthers() {
           <div>
             <p>{resultUser.username}</p>
             <button onClick={handleFollowToggle}>
-              {isFollowing ? 'Unfollow' : 'Follow'}
+              {resultUser.isFollowing ? 'Unfollow' : 'Follow'}
             </button>
           </div>
         ) : (

@@ -11,22 +11,31 @@ export default function BlogPost() {
   const [tags, setTags] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e) =>{
     e.preventDefault();
     setMessage('');
-    try {
-      const res = await api.post('/blog', { subject, description, tags });
+
+    try{
+      const token = localStorage.getItem('token');//retrieve token from localStorage (set during login)
+
+      const res = await api.post('/blog', {subject, description, tags},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
       setMessage('Blog posted successfully!');
       setSubject('');
       setDescription('');
       setTags('');
-    } catch (err) {
+    }
+    catch (err){
       const msg = err.response?.data?.message;
-      if (msg?.includes('Max 2 blogs')) {
+      if (msg?.includes('Max 2 blogs'))
         setMessage('You have reached your daily limit of 2 blog posts.');
-      } else {
+      else
         setMessage(msg || 'Error posting blog.');
-      }
     }
   };
 

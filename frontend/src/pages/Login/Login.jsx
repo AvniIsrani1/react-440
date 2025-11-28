@@ -1,19 +1,19 @@
-import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, {useState, useContext} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 import api from '../../api';
-import { AuthContext } from '../../context/AuthContext';
+import {AuthContext} from '../../context/AuthContext';
 import '../../styles/variables.css';
 import './Login.css';
 import Welcome from '../../common/Welcome/Welcome';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'; 
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faPencilAlt} from '@fortawesome/free-solid-svg-icons'; 
 
-export default function Login() {
-  const [form, setForm] = useState({ username: '', password: '' });
+export default function Login(){
+  const [form, setForm] = useState({username: '', password: ''});
   const [msg, setMsg] = useState('');
   const [busy, setBusy] = useState(false);
-  const { login } = useContext(AuthContext);
+  const {login} = useContext(AuthContext);
   const navigate = useNavigate();
 
   const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,16 +22,31 @@ export default function Login() {
     e.preventDefault();
     setMsg('');
     setBusy(true);
-    try {
+    try{
       const res = await api.post('http://localhost:3000/auth/login', form);
+
       const token = res.data?.accessToken;
       const userData = res.data?.user;
-      if (token && userData) login(userData, token);
-      navigate('/');
-    } catch (err) {
+
+      if(token && userData){
+        //Store JWT in localStorage so protected routes can use it
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(userData));
+
+        //Update AuthContext
+        login(userData, token);
+
+        //Navigate to home/dashboard
+        navigate('/');
+      }
+      else
+        setMsg('Login failed: missing token or user data');
+    }
+    catch (err){
       const s = err?.response?.data;
       setMsg(s?.message || s?.error || 'Invalid credentials');
-    } finally {
+    }
+    finally{
       setBusy(false);
     }
   };
@@ -45,24 +60,24 @@ export default function Login() {
         </div>
 
         <form onSubmit={submit} className="form">
-            <input
-              name="username"
-              placeholder="Username"
-              value={form.username}
-              onChange={onChange}
-              required
-              autoComplete="username"
-            />
+          <input
+            name="username"
+            placeholder="Username"
+            value={form.username}
+            onChange={onChange}
+            required
+            autoComplete="username"
+          />
 
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={form.password}
-              onChange={onChange}
-              required
-              autoComplete="current-password"
-            />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={onChange}
+            required
+            autoComplete="current-password"
+          />
 
           <button className="btn-primary" type="submit" disabled={busy}>
             {busy ? 'Signing in…' : 'Sign In'}

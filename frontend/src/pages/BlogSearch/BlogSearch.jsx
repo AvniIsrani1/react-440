@@ -99,28 +99,38 @@ export default function BlogSearch() {
     await loadComments(selectedBlog.id, filter);
   };
 
-  const submitComment = async (e) => {
+  const submitComment = async (e) =>{
     e.preventDefault();
-    if (!selectedBlog) return;
+    if(!selectedBlog) return;
 
     setCommentMsg('');
-    try {
-      await api.post(`/comment/${selectedBlog.id}`, {
+    try{
+      const token = localStorage.getItem('token');//retrieve token from localStorage (set during login)
+
+      await api.post(`/comment/${selectedBlog.id}`,
+      {
         sentiment,
         content,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // attach JWT only for protected route
+        },
       });
-      setCommentMsg('Comment submitted successfully.');
-      setContent('');
-      loadComments(selectedBlog.id, commentFilter);
-    } catch (err) {
-      const status = err?.response?.status;
-      if (status === 401 || status === 403) {
-        navigate('/login', { replace: true });
-        return;
-      }
-      setCommentMsg(err?.response?.data?.message || 'Failed to submit comment.');
+
+    setCommentMsg('Comment submitted successfully.');
+    setContent('');
+    loadComments(selectedBlog.id, commentFilter); // still public
+  }
+  catch(err){
+    const status = err?.response?.status;
+    if(status === 401 || status === 403) {
+      navigate('/login', { replace: true });
+      return;
     }
-  };
+    setCommentMsg(err?.response?.data?.message || 'Failed to submit comment.');
+  }
+};
 
   return (
     <div className="blog-search">

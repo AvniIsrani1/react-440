@@ -11,32 +11,32 @@ datasource db {
 // after making a change here, run this: npx prisma migrate dev --name description_description
 
 model User {
-  //id Int @id @default(autoincrement())
-  username String @id @db.VarChar(50)
-  password String @db.VarChar(255)
-  firstName String @db.VarChar(50)
-  lastName String @db.VarChar(50)
-  email String @unique(map: "email") @db.VarChar(255)
-  phone String @unique(map: "phone") @db.VarChar(15)
+  id        Int     @id @default(autoincrement())
+  username  String  @unique @db.VarChar(50)
+  password  String  @db.VarChar(255)
+  firstName String  @db.VarChar(50)
+  lastName  String  @db.VarChar(50)
+  email     String  @unique(map: "email") @db.VarChar(255)
+  phone     String  @unique(map: "phone") @db.VarChar(15)
 
-  blogs    Blog[]     @relation("UserBlogs")
-  comments Comment[]  @relation("UserComments")
+  blogs     Blog[]     @relation("UserBlogs")
+  comments  Comment[]  @relation("UserComments")
 
-   // Relations for follows
-  //following Follow[] @relation("UserFollows")     // users this user follows
-  //followers Follow[] @relation("UserFollowedBy")  // users who follow this user
+  // Relations for following
+  following Following[] @relation("UserFollows") // users followed by this user
+  followers Following[] @relation("UserFollowedBy") //this user's followers
 }
 
-/*model Follow {
+model Following {
   id           Int  @id @default(autoincrement())
   followerId   Int
   followingId  Int
 
-  follower     User @relation(fields: [followerId], references: [id])
-  following    User @relation(fields: [followingId], references: [id])
+  follower     User @relation("UserFollows", fields: [followerId], references: [id])
+  following    User @relation("UserFollowedBy", fields: [followingId], references: [id])
 
-  @@unique([followerId, followingId])
-}*/
+  @@unique([followerId, followingId]) //prevent duplicate follows
+}
 
 model Blog {
   id          Int      @id @default(autoincrement())
