@@ -1,0 +1,315 @@
+{
+  "info": {
+    "_postman_id": "2ab523c7-a2a7-418c-a0a3-03bff50a4e38",
+    "name": "React 440 APIs",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49378592",
+    "_collection_link": "https://avniisrani9-4043846.postman.co/workspace/54e5c826-7ec7-4d9e-8d33-759e780eabad/collection/49378592-2ab523c7-a2a7-418c-a0a3-03bff50a4e38?action=share&source=collection_link&creator=49378592"
+  },
+  "item": [
+    {
+      "name": "Phase1",
+      "item": [
+        {
+          "name": "Get User Info",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "fbfc0a4a-486b-4342-9f69-142fc338c98d",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "id": "8c4d25d9-d3c2-4bca-ae7a-7a551c0d6aec",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiZmlyc3ROYW1lIjoidXNlcjEiLCJsYXN0TmFtZSI6InVzZXIxbGFzdCIsImVtYWlsIjoidXNlcjFAZXhhbXBsZS5jb20iLCJwaG9uZSI6IjExMTExMTExMTEiLCJpYXQiOjE3NjQzOTkxNDksImV4cCI6MTc2NDQwOTk0OX0.c46-yu4IXTZUCbUBxzIEyFvQxsVI-qeKOd5jUTd67FA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/user/username?username=user1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "user",
+                "username"
+              ],
+              "query": [
+                {
+                  "key": "username",
+                  "value": "user1"
+                }
+              ]
+            },
+            "description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+          },
+          "response": []
+        },
+        {
+          "name": "Register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "360a0c18-ccbd-4bff-9860-fdd77f206464",
+                "exec": [
+                  "pm.test(\"Successful POST request\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "id": "122f47bb-581b-4de9-a519-5e4059283f91",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"user1\",\n  \"email\": \"user1@gmail.com\",\n  \"password\": \"adminadmin\",\n  \"confirmPassword\":\"adminadmin\",\n  \"firstName\": \"user1\",\n  \"lastName\":\"user1last\",\n  \"phone\":\"8181234567\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "auth",
+                "register"
+              ]
+            },
+            "description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "id": "a6649c60-590c-4319-a2bd-139743587f65",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"user1\",\r\n  \"password\":\"adminadmin\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "d6b7c860-1611-43d5-baa0-7d9b3f6c0638"
+    },
+    {
+      "name": "Phase2",
+      "item": [
+        {
+          "name": "Create Blog",
+          "id": "b01cfd3a-ce79-494c-a54e-fd05495d1b69",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiZmlyc3ROYW1lIjoidXNlcjEiLCJsYXN0TmFtZSI6InVzZXIxbGFzdCIsImVtYWlsIjoidXNlcjFAZXhhbXBsZS5jb20iLCJwaG9uZSI6IjExMTExMTExMTEiLCJpYXQiOjE3NjQzOTkxNDksImV4cCI6MTc2NDQwOTk0OX0.c46-yu4IXTZUCbUBxzIEyFvQxsVI-qeKOd5jUTd67FA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"subject\": \"AI in Healthcare\",\r\n  \"description\": \"Artificial intelligence is revolutionizing diagnostics, treatment personalization, and early disease detection.\",\r\n  \"tags\": \"ai, healthcare, machinelearning, autonomy\"\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/blog",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "blog"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search by Tag",
+          "id": "97083ef8-0612-4564-870d-5f093341282f",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiZmlyc3ROYW1lIjoidXNlcjEiLCJsYXN0TmFtZSI6InVzZXIxbGFzdCIsImVtYWlsIjoidXNlcjFAZXhhbXBsZS5jb20iLCJwaG9uZSI6IjExMTExMTExMTEiLCJpYXQiOjE3NjQzOTkxNDksImV4cCI6MTc2NDQwOTk0OX0.c46-yu4IXTZUCbUBxzIEyFvQxsVI-qeKOd5jUTd67FA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/blog/search?tag=healthcare",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "blog",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "tag",
+                  "value": "healthcare"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Comment",
+          "id": "04347e34-7a16-45d8-ba07-165931870f94",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiZmlyc3ROYW1lIjoidXNlcjEiLCJsYXN0TmFtZSI6InVzZXIxbGFzdCIsImVtYWlsIjoidXNlcjFAZXhhbXBsZS5jb20iLCJwaG9uZSI6IjExMTExMTExMTEiLCJpYXQiOjE3NjQzOTkxNDksImV4cCI6MTc2NDQwOTk0OX0.c46-yu4IXTZUCbUBxzIEyFvQxsVI-qeKOd5jUTd67FA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"sentiment\": \"negative\",\r\n  \"content\": \"awful awful\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/comment/59",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "comment",
+                "59"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Comments on Blog",
+          "id": "5f574d0c-382c-4442-9901-bf9be9e4044a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiZmlyc3ROYW1lIjoidXNlcjEiLCJsYXN0TmFtZSI6InVzZXIxbGFzdCIsImVtYWlsIjoidXNlcjFAZXhhbXBsZS5jb20iLCJwaG9uZSI6IjExMTExMTExMTEiLCJpYXQiOjE3NjQzOTkxNDksImV4cCI6MTc2NDQwOTk0OX0.c46-yu4IXTZUCbUBxzIEyFvQxsVI-qeKOd5jUTd67FA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"sentiment\": \"negative\",\r\n  \"content\": \"awful\"\r\n}\r\n"
+            },
+            "url": {
+              "raw": "http://localhost:3000/comment/57",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "comment",
+                "57"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "6d0c801f-3cf7-48be-aa8c-aaf1d76394a1"
+    },
+    {
+      "name": "Phase3",
+      "item": [],
+      "id": "cd06da96-6e01-4582-add5-d39fd0c2beb5"
+    }
+  ]
+}

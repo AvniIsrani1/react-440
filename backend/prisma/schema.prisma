@@ -20,6 +20,8 @@ model User {
 
   blogs    Blog[]     @relation("UserBlogs")
   comments Comment[]  @relation("UserComments")
+  followers  Follow[] @relation("followers")
+  following  Follow[] @relation("following")
 }
 
 model Blog {
@@ -43,4 +45,14 @@ model Comment {
   blogId    Int
   author User @relation("UserComments", fields: [authorUsername], references: [username], onDelete: Cascade)
   authorUsername String 
+}
+
+model Follow {
+  follower   String
+  following  String
+
+  user_follower  User @relation("followers", fields: [follower], references: [username])
+  user_following User @relation("following", fields: [following], references: [username])
+
+  @@id([follower, following])
 }

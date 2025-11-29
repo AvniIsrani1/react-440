@@ -20,7 +20,8 @@ export class BlogController {
   @Post()
   async createBlog(@Body() createBlogDto: CreateBlogDto, @Req() req) {
     const authorUsername = req.user?.username; // extract from auth context
-    if(!authorUsername) throw new BadRequestException("Author username is not present");
+    if (!authorUsername)
+      throw new BadRequestException('Author username is not present');
     return this.blogService.create(createBlogDto, String(authorUsername));
   }
 
@@ -29,5 +30,23 @@ export class BlogController {
   async searchByTag(@Query('tag') tag: string) {
     console.log('Search route hit with tag:', tag);
     return this.blogService.searchByTag(tag);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('tag-pair')
+  findTagPair(@Query('tagX') tagX: string, @Query('tagY') tagY: string) {
+    return this.blogService.findUsersWithTagsXandY(tagX, tagY);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('most-on-date')
+  mostOnDate(@Query('date') date: string) {
+    return this.blogService.mostBlogsOnDate(date);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('positive-only')
+  positiveOnly(@Query('user') user: string) {
+    return this.blogService.positiveOnlyBlogs(user);
   }
 }

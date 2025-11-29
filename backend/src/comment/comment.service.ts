@@ -88,4 +88,27 @@ export class CommentService {
       author: comment.author.username,
     }));
   }
+
+  async usersAllNegativeComments() {
+    return this.prisma.$queryRaw`
+      SELECT authorUsername AS username
+      FROM Comment
+      GROUP BY authorUsername
+      HAVING COUNT(*) > 0
+        AND SUM(sentiment = 'positive') = 0;
+    `; //at least 1 comment AND all comments are not positive (i.e. negative)
+  }
+  // async usersAllNegativeComments2() {
+  //   return this.prisma.user.findMany({
+  //     where: {
+  //       comments: {
+  //         some: {}, //has comments
+  //         every: {
+  //           sentiment: 'negative',
+  //         },
+  //       },
+  //     },
+  //     select: { username: true },
+  //   });
+  // }
 }
