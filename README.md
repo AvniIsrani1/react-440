@@ -1,7 +1,12 @@
 # Team #2 
 ## Group Members: Avni Israni, Devansh Sharma, Kevin Volkov
+#### Member Contributions
+1. Avni - Phase 1 Database Schema & Backend APIs (Register/Login); Phase 2 Backend APIs (Comment); Phase 3 Backend APIs (User/Blog/Comment) & Frontend Styling
+2. Devansh - Phase 1 Frontend; Phase 2 Frontend
+3. Kevin - Phase 2 Frontend, Database Schema, & Backend APIs (Blog); Phase 3 Frontend
 
-Tech Stack: React, NestJS, MySQL
+## Tech Stack: React, NestJS, MySQL
+
 # DEMO
 ## All Demos
 Google Drive Link: https://drive.google.com/drive/folders/1YQDuTkvDccavkgMqA2UeAZAwxHxITO4-?usp=sharing

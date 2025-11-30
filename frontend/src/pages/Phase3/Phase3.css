@@ -21,7 +21,6 @@
   text-align: center;
 }
 
-/* Inputs */
 .phase3-input-group {
   display: flex;
   gap: 12px;
@@ -38,7 +37,6 @@
   width: 220px;
 }
 
-/* Buttons */
 .phase3-button {
   background: #2c3b45;
   color: white;
@@ -56,7 +54,6 @@
   background: #3e5561;
 }
 
-/* Results section */
 .phase3-results {
   margin-top: 20px;
 }
@@ -83,14 +80,12 @@
   color: #333;
 }
 
-/* "No results" text */
 .phase3-empty {
   text-align: center;
   color: #777;
   padding: 12px 0;
 }
 
-/* Input list for two-box layouts */
 .phase3-input-two {
   display: flex;
   justify-content: center;
