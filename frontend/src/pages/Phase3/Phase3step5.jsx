@@ -1,7 +1,7 @@
-//KV added file: Phase3step5.jsx
 //Frontend page for phase 3 step 5: list all the blogs of user X, such that all the comments are
 //positive for these blogs.
 import React, {useState} from 'react';
+import './Phase3.css';
 
 function Phase3step5(){
   const [username, setUsername] = useState('');//erase any text in textbox
@@ -30,7 +30,7 @@ function Phase3step5(){
   };
 
   return (//return the HTML code
-    <div>
+    <div className="phase3-container">
       <h2>Phase 3 Step #5: Blogs with Only Positive Comments</h2>
       <p>
         List all the blogs of user X, such that all the comments are positive for these blogs. (in

@@ -1,0 +1,99 @@
+.follow-page {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.follow-card {
+  background: var(--panel-2, #f4f7f9);
+  padding: 28px;
+  border-radius: var(--radius, 10px);
+  box-shadow: var(--shadow-lg, 0 4px 12px rgba(0, 0, 0, 0.1));
+  width: 420px;
+}
+
+.follow-card h2 {
+  margin-bottom: 10px;
+  color: #2c3b45;
+}
+
+.search-row {
+  display: flex;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.search-row input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccd2d5;
+  border-radius: 6px;
+}
+
+.search-row button {
+  padding: 10px 14px;
+  background: #2c3b45;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.search-row button:hover {
+  background: #39505c;
+}
+
+.status-msg {
+  margin-top: 10px;
+  color: green;
+  font-weight: 600;
+}
+
+.results-area {
+  margin-top: 20px;
+}
+
+.empty-msg {
+  color: #6b7075;
+}
+
+.result-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm, 0 2px 6px rgba(0, 0, 0, 0.08));
+}
+
+.result-username {
+  font-weight: 600;
+  color: #2c3b45;
+}
+
+.btn-follow {
+  background: #2c3b45;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-unfollow {
+  background: #c62828;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-follow:hover {
+  background: #3a5563;
+}
+
+.btn-unfollow:hover {
+  background: #a32020;
+}

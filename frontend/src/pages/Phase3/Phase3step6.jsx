@@ -1,7 +1,7 @@
-//KV added file: Phase3step6.jsx
 //Frontend page for phase 3 step 6: Display all the users who posted some comments, but each of
 //them is negative.
 import React, {useEffect, useState} from 'react';
+import './Phase3.css';
 
 function Phase3step6(){
   const [results, setResults] = useState([]);//erase any text from the result field
@@ -29,7 +29,7 @@ function Phase3step6(){
   }, []);
 
   return (//return the HTML code
-    <div>
+    <div className="phase3-container">
       <h2>Phase 3 Step #6: Display all the users who posted some comments, but each of them is negative.</h2>
 
       <div>

@@ -1,6 +1,6 @@
-//KV added file: Phase3step3.jsx
 //Frontend page for phase 3 step 3: list all users followed by both input usernames x and Y
 import React, {useState} from 'react';
+import './Phase3.css';
 
 function Phase3step3(){
   const [usernameX, setUsernameX] = useState('');//erase any text from first textbox
@@ -30,7 +30,7 @@ function Phase3step3(){
   };
 
   return (//return the HTML code
-    <div>
+    <div className="phase3-container">
       <h2>Phase 3 Step #3: Common Followed Users</h2>
       <p>
         List the users who are followed by both users X and Y. Usernames X and Y are inputs from
