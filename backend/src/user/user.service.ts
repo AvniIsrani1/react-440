@@ -22,6 +22,20 @@ export class UserService {
     return await this.prisma.user.findUnique({ where: { username } });
   }
 
+  //KV add-----------------------------------------------------------------------------------------
+  //Helper function for Follow others: checks if one user is following another
+  async isFollowing(follower: string, target: string): Promise<boolean>{
+    if(!follower || !target) return false;//missing input
+    if(follower === target) return false;// you don't "follow" yourself
+
+    const follow = await this.prisma.follow.findUnique({
+      where: {follower_following: {follower, following: target}},//check if follower follows target
+    });
+
+    return !!follow;//return result
+  }
+  //-----------------------------------------------------------------------------------------------
+
   async findByEmail(email: string) {
     return await this.prisma.user.findUnique({ where: { email } });
   }
@@ -139,12 +153,12 @@ export class UserService {
         },
       });
       return { followingNow: false };
-    }
+    }                                                
 
     //Follow
     await this.prisma.follow.create({
       data: { follower, following },
     });
-    return { followingNow: true };
-  }
+    return { isFollowing: true };
+  }                                              
 }

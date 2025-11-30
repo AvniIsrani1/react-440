@@ -27,6 +27,28 @@ export class UserController {
     return this.userService.findByUsername(username);
   }
 
+  //KV add-----------------------------------------------------------------------------------------
+  //For follow functionallity: Both searches for a user and checks if the logged-in user already
+  //follows this searched user
+  @UseGuards(AuthGuard('jwt'))
+  @Get('user-with-follow-status')
+  async userWithFollowStatus(@Query('username') username: string, @Request() req){
+    const currentUser = req.user.username;//get the current user
+
+    const user = await this.userService.findByUsername(username);//check if the target user exists
+    if(!user)//target user doesn't exist
+      return null;//return no results
+
+  const isFollowing = await this.userService.isFollowing(currentUser, username);//target exists:
+                                                                                //check following
+  return {//return results
+    username: user.username,
+    //email: user.email,
+    isFollowing,
+  };
+}
+//-------------------------------------------------------------------------------------------------
+
   @UseGuards(AuthGuard('jwt'))
   @Get('me')
   getMe(@Request() req) {
