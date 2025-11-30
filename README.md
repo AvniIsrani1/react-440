@@ -44,7 +44,7 @@ YouTube Link: https://youtu.be/iD_Y5PVsSac
 ##### Backend
         cd backend
         npm install
-	npx prisma migrate dev
+		npx prisma migrate dev
         npm run start
 ##### Frontend
         cd frontend
