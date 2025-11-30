@@ -82,14 +82,14 @@ export class BlogService {
     const x = tagX.trim().toLowerCase();
     const y = tagY.trim().toLowerCase();
     return this.prisma.$queryRaw`
-      SELECT DISTINCT b1.authorUsername
-      FROM Blog b1
-      JOIN Blog b2
-        ON b1.authorUsername = b2.authorUsername
-        AND DATE(b1.createdAt) = DATE(b2.createdAt)
-        AND b1.id <> b2.id
-      WHERE b1.tags LIKE ${'%' + x + '%'}
-        AND b2.tags LIKE ${'%' + y + '%'};
+    SELECT DISTINCT b1.authorUsername
+    FROM Blog b1
+    JOIN Blog b2
+      ON b1.authorUsername = b2.authorUsername
+     AND DATE(b1.createdAt) = DATE(b2.createdAt)
+     AND b1.id <> b2.id
+    WHERE FIND_IN_SET(${x}, b1.tags)
+      AND FIND_IN_SET(${y}, b2.tags);
     `;
   }
 

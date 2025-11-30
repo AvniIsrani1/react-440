@@ -70,7 +70,7 @@ export class UserController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get('no-negative-comments')
-  safeBloggers() {
+  noNegativeComments() {
     return this.userService.usersBlogsNoNegative();
   }
 
