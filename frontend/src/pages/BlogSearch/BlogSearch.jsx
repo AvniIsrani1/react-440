@@ -1,50 +1,55 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import api from '../../api';
-import './BlogSearch.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../../api";
+import "./BlogSearch.css";
 
 export default function BlogSearch() {
-  const [tag, setTag] = useState('');
+  const [tag, setTag] = useState("");
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [searched, setSearched] = useState(false);
 
   const [selectedBlog, setSelectedBlog] = useState(null);
-  const [sentiment, setSentiment] = useState('positive');
-  const [content, setContent] = useState('');
-  const [commentMsg, setCommentMsg] = useState('');
+  const [sentiment, setSentiment] = useState("positive");
+  const [content, setContent] = useState("");
+  const [commentMsg, setCommentMsg] = useState("");
 
   const [comments, setComments] = useState([]);
   const [commentsLoading, setCommentsLoading] = useState(false);
-  const [commentsError, setCommentsError] = useState('');
-  const [commentFilter, setCommentFilter] = useState('all');
+  const [commentsError, setCommentsError] = useState("");
+  const [commentFilter, setCommentFilter] = useState("all");
 
   const navigate = useNavigate();
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setSearched(false);
     resetPanel();
 
     const trimmed = tag.trim();
+    let emptyWarning = "";
     if (!trimmed) {
-      setError('Please enter a tag to search.');
-      return;
+      emptyWarning = "No tag selected: showing all blogs instead.";
     }
-
     setLoading(true);
+
     try {
-      const res = await api.get('/blog/search', { params: { tag: trimmed } });
+      const res = await api.get("/blog/search", { params: { tag: trimmed } });
       setBlogs(Array.isArray(res.data) ? res.data : []);
       setSearched(true);
+      if (emptyWarning) {
+        setError(emptyWarning); //show warning
+      }
     } catch (err) {
       const status = err?.response?.status;
       if (status === 401 || status === 403) {
-        navigate('/login', { replace: true });
+        navigate("/login", { replace: true });
       } else {
-        setError(err?.response?.data?.message || 'Something went wrong. Try again.');
+        setError(
+          err?.response?.data?.message || "Something went wrong. Try again."
+        );
       }
     } finally {
       setLoading(false);
@@ -53,31 +58,35 @@ export default function BlogSearch() {
 
   const resetPanel = () => {
     setSelectedBlog(null);
-    setSentiment('positive');
-    setContent('');
-    setCommentMsg('');
+    setSentiment("positive");
+    setContent("");
+    setCommentMsg("");
     setComments([]);
-    setCommentsError('');
+    setCommentsError("");
     setCommentsLoading(false);
-    setCommentFilter('all');
+    setCommentFilter("all");
   };
 
   const loadComments = async (blogId, filter = commentFilter) => {
-    setCommentsError('');
+    setCommentsError("");
     setCommentsLoading(true);
     try {
-      const params = filter !== 'all' ? { sentiment: filter } : {};
+      const params = filter !== "all" ? { sentiment: filter } : {};
       const res = await api.get(`/comment/${blogId}`, { params });
       const list = Array.isArray(res.data) ? res.data : [];
       const filtered =
-        filter === 'all' ? list : list.filter((c) => String(c.sentiment).toLowerCase() === filter);
+        filter === "all"
+          ? list
+          : list.filter((c) => String(c.sentiment).toLowerCase() === filter);
       setComments(filtered);
     } catch (err) {
       const status = err?.response?.status;
       if (status === 401 || status === 403) {
-        navigate('/login', { replace: true });
+        navigate("/login", { replace: true });
       } else {
-        setCommentsError(err?.response?.data?.message || 'Failed to load comments.');
+        setCommentsError(
+          err?.response?.data?.message || "Failed to load comments."
+        );
       }
     } finally {
       setCommentsLoading(false);
@@ -86,11 +95,11 @@ export default function BlogSearch() {
 
   const openComments = (blog) => {
     setSelectedBlog(blog);
-    setCommentFilter('all');
-    setSentiment('positive');
-    setContent('');
-    setCommentMsg('');
-    loadComments(blog.id, 'all');
+    setCommentFilter("all");
+    setSentiment("positive");
+    setContent("");
+    setCommentMsg("");
+    loadComments(blog.id, "all");
   };
 
   const changeFilter = async (filter) => {
@@ -103,22 +112,24 @@ export default function BlogSearch() {
     e.preventDefault();
     if (!selectedBlog) return;
 
-    setCommentMsg('');
+    setCommentMsg("");
     try {
       await api.post(`/comment/${selectedBlog.id}`, {
         sentiment,
         content,
       });
-      setCommentMsg('Comment submitted successfully.');
-      setContent('');
+      setCommentMsg("Comment submitted successfully.");
+      setContent("");
       loadComments(selectedBlog.id, commentFilter);
     } catch (err) {
       const status = err?.response?.status;
       if (status === 401 || status === 403) {
-        navigate('/login', { replace: true });
+        navigate("/login", { replace: true });
         return;
       }
-      setCommentMsg(err?.response?.data?.message || 'Failed to submit comment.');
+      setCommentMsg(
+        err?.response?.data?.message || "Failed to submit comment."
+      );
     }
   };
 
@@ -134,7 +145,7 @@ export default function BlogSearch() {
             onChange={(e) => setTag(e.target.value)}
           />
           <button type="submit" disabled={loading}>
-            {loading ? 'Searching…' : 'Search'}
+            {loading ? "Searching…" : "Search"}
           </button>
         </form>
 
@@ -164,7 +175,10 @@ export default function BlogSearch() {
                         <td>{String(b.tags)}</td>
                         <td>{b.authorUsername}</td>
                         <td>
-                          <button className="link-btn" onClick={() => openComments(b)}>
+                          <button
+                            className="link-btn"
+                            onClick={() => openComments(b)}
+                          >
                             Comments
                           </button>
                         </td>
@@ -182,7 +196,8 @@ export default function BlogSearch() {
         {selectedBlog && (
           <div className="comment-panel">
             <h3>
-              Comments for: <span className="sel-title">{selectedBlog.subject}</span>
+              Comments for:{" "}
+              <span className="sel-title">{selectedBlog.subject}</span>
             </h3>
 
             <div className="filter-row">
@@ -190,22 +205,22 @@ export default function BlogSearch() {
               <div className="filter-group">
                 <button
                   type="button"
-                  data-active={commentFilter === 'all'}
-                  onClick={() => changeFilter('all')}
+                  data-active={commentFilter === "all"}
+                  onClick={() => changeFilter("all")}
                 >
                   All
                 </button>
                 <button
                   type="button"
-                  data-active={commentFilter === 'positive'}
-                  onClick={() => changeFilter('positive')}
+                  data-active={commentFilter === "positive"}
+                  onClick={() => changeFilter("positive")}
                 >
                   Positive
                 </button>
                 <button
                   type="button"
-                  data-active={commentFilter === 'negative'}
-                  onClick={() => changeFilter('negative')}
+                  data-active={commentFilter === "negative"}
+                  onClick={() => changeFilter("negative")}
                 >
                   Negative
                 </button>
@@ -213,7 +228,9 @@ export default function BlogSearch() {
               <button
                 type="button"
                 className="refresh-btn"
-                onClick={() => selectedBlog && loadComments(selectedBlog.id, commentFilter)}
+                onClick={() =>
+                  selectedBlog && loadComments(selectedBlog.id, commentFilter)
+                }
               >
                 Refresh
               </button>
@@ -234,13 +251,20 @@ export default function BlogSearch() {
                   {comments.map((c) => (
                     <li key={c.id} className="comment-item">
                       <div className="c-top">
-                        <span className={`pill ${c.sentiment === 'positive' ? 'good' : 'bad'}`}>
+                        <span
+                          className={`pill ${
+                            c.sentiment === "positive" ? "good" : "bad"
+                          }`}
+                        >
                           {c.sentiment}
                         </span>
                         <span className="c-meta">
-                          <b>{c.author || c.authorUsername || 'Anonymous'}</b>
+                          <b>{c.author || c.authorUsername || "Anonymous"}</b>
                           {c.createdAt && (
-                            <span> • {new Date(c.createdAt).toLocaleString()}</span>
+                            <span>
+                              {" "}
+                              • {new Date(c.createdAt).toLocaleString()}
+                            </span>
                           )}
                         </span>
                       </div>
@@ -275,14 +299,20 @@ export default function BlogSearch() {
               </label>
 
               <div className="comment-actions">
-                <button type="submit" className="primary">Submit Comment</button>
+                <button type="submit" className="primary">
+                  Submit Comment
+                </button>
                 <button type="button" className="ghost" onClick={resetPanel}>
                   Close
                 </button>
               </div>
 
               {commentMsg && (
-                <p className={`note ${commentMsg.includes('successfully') ? 'ok' : 'err'}`}>
+                <p
+                  className={`note ${
+                    commentMsg.includes("successfully") ? "ok" : "err"
+                  }`}
+                >
                   {commentMsg}
                 </p>
               )}

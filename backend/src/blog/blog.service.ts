@@ -34,7 +34,28 @@ export class BlogService {
     });
   }
 
+  async findAllBlogs() {
+    return this.prisma.blog.findMany({
+      include: {
+        comments: {
+          select: {
+            id: true,
+            sentiment: true,
+            content: true,
+            createdAt: true,
+            authorUsername: true,
+          },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
   async searchByTag(tag: string) {
+    if (!tag || !tag.trim()) {
+      console.log('Tag empty, returning all blogs');
+      return this.findAllBlogs(); //return all blogs if tag empty
+    }
     const normalizedTag = tag.trim().toLowerCase();
     console.log('Searching for tag:', normalizedTag); //for debug
     const blogs = await this.prisma.blog.findMany({
